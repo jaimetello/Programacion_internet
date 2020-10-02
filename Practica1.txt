@@ -29,7 +29,7 @@ const Marca2={
         },
         {
             nombre: "Clio",
-            edad: 90,
+            potencia: 90,
             acabado: "GT Line"
         }
     ]
