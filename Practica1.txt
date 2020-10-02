@@ -1,0 +1,121 @@
+
+const Marca={
+    nombre: "Ford",
+    facturacion: 21000000,
+    modelos: [
+        {
+        nombre: "Focus",
+        potencia: 100,
+        acabado: "Trend" 
+        },
+        {
+            nombre: "Mondeo",
+            potencia: 200,
+            acabado: "Titanium"
+        }
+    ]
+
+   
+}
+
+const Marca2={
+    nombre: "Renault",
+    facturacion: 52000000, 
+    modelos: [
+        {
+            nombre: "Megane",
+            potencia: 110,
+            acabado: "Business"
+        },
+        {
+            nombre: "Clio",
+            edad: 90,
+            acabado: "GT Line"
+        }
+    ]
+}
+
+const Marca3={
+    nombre:"Audi",
+    facturacion: 42000000,
+    modelos: [
+        {
+            nombre: "A3",
+            potencia: 140,
+            acabado: "Ambiente",
+            matricula: "5978GPT"
+        },
+         {
+            nombre: "A6",
+            potencia: 240,
+            acabado: "S-line",
+            matricula: "5978JTS"
+        }
+    ]
+}
+
+
+const deepPrint=(a:Object)=>{
+    let l=Object.keys(a)
+    l.forEach(key=>{
+        if(Array.isArray(a[key])){
+            for(let i of a[key]){
+               deepPrint(i);
+            }
+        }else if(typeof(a[key]!=Object)){
+            console.log(a[key])
+        }
+  })
+}
+
+deepPrint(Marca2);
+
+
+    
+
+
+
+const deepEqual=(a:Object, b:Object, i:number):boolean=>{
+    let c=Object.keys(a)
+    let d=Object.keys(b)
+    if(c.length!=d.length){
+        return false
+    }else{
+        if(i==c.length){
+            return true;
+        }else{
+            if(Object.keys(a)[i]!=Object.keys(b)[i]){ //Se podria también poner c[i] y d[i] Daría lo mismo
+                return false;
+            }
+            if(Array.isArray(a[c[i]])){
+                 for(let v=0;v<a[c[i]].length;v++){
+                   return deepEqual(a[c[i]][v],b[d[i]][v],0)
+                }
+            }
+            }
+    i+=1;
+    return deepEqual(a,b,i);
+    }
+}
+
+console.log(deepEqual(Marca, Marca2, 0));
+console.log(deepEqual(Marca, Marca3, 0));
+
+
+const deepClone=(a:Object):Object=>{
+  let copia={} 
+  for(let i in a){
+      let valor = a[i];
+
+      if(typeof (valor != "object")){
+
+          copia[i]=valor;
+      }else{
+          copia[i]=deepClone(valor);
+      }
+
+  }
+  return Marca;
+}
+
+console.log(deepClone(Marca2));
